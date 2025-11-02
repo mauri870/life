@@ -14,13 +14,16 @@ int main(void) {
     const int N = 750;
     const int INITIAL_WINDOW_WIDTH = N;
     const int INITIAL_WINDOW_HEIGHT = N;
-    int CELL_SIZE = 4;
-    int FPS = 12;
+    const int SIM_WIDTH = 2000;
+    const int SIM_HEIGHT = 2000;
+    int CELL_SIZE = 5;
+    int FPS = 30;
 
     InitWindow(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT, "Mauri's Game of Life");
+    SetWindowState(FLAG_WINDOW_RESIZABLE);
     SetTargetFPS(FPS);
 
-    Simulation simulation(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT, CELL_SIZE);
+    Simulation simulation(SIM_WIDTH, SIM_HEIGHT, CELL_SIZE);
 
     // --- Camera for zoom & pan ---
     Camera2D camera = { 0 };
@@ -69,19 +72,7 @@ int main(void) {
         else if (IsKeyPressed(KEY_E)) { FPS += 3; SetTargetFPS(FPS); }
         else if (IsKeyPressed(KEY_Q)) { if (FPS > 5) { FPS -= 2; SetTargetFPS(FPS); } }
         else if (IsKeyPressed(KEY_ENTER)) {
-            if (!IsWindowFullscreen()) {
-                int monitor = GetCurrentMonitor();
-                int screenWidth = GetMonitorWidth(monitor);
-                int screenHeight = GetMonitorHeight(monitor);
-
-                SetWindowSize(screenWidth, screenHeight);
-                ToggleFullscreen();
-                simulation.SetSize(screenWidth, screenHeight, CELL_SIZE);
-            } else {
-                ToggleFullscreen();
-                SetWindowSize(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT);
-                simulation.SetSize(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT, CELL_SIZE);
-            }
+            ToggleFullscreen();
         }
 
         simulation.Update();

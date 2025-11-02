@@ -8,7 +8,7 @@ find_package(raylib CONFIG REQUIRED)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(${PROJECT_NAME} src/main.cc)
-target_link_libraries(${PROJECT_NAME} raylib)
+target_link_libraries(${PROJECT_NAME} raylib glfw)
 
 if (APPLE)
     # for raylib compatibility

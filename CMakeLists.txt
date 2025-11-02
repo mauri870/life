@@ -7,7 +7,10 @@ find_package(raylib CONFIG REQUIRED)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(${PROJECT_NAME} src/main.cc)
+file (GLOB_RECURSE Sources CONFIGURE_DEPENDS "src/*.cpp")
+file (GLOB_RECURSE Headers CONFIGURE_DEPENDS "src/*.hpp")
+
+add_executable(${PROJECT_NAME} ${Sources} ${Headers})
 target_link_libraries(${PROJECT_NAME} raylib glfw)
 
 if (APPLE)

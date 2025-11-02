@@ -19,6 +19,10 @@ class Simulation {
         void CreateRandomState();
         void ClearGrid();
         void ToggleCell(int row, int col);
+        void SetSize(int width, int height, int cellsiz) {
+            grid.UpdateSize(width, height, cellsiz);
+            nextGrid.UpdateSize(width, height, cellsiz);
+        }
     private:
         Grid grid;
         Grid nextGrid;

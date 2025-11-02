@@ -63,3 +63,14 @@ void Grid::ToggleCell(int row, int col)
 
     SetCell(row, col, !GetCell(row, col));
 }
+
+void Grid::UpdateSize(int width, int height, int cellsize)
+{
+    cellSize = cellsize;
+    cols = width / cellSize;
+    rows = height / cellSize;
+    cells.resize(rows);
+    for (int r = 0; r < rows; r++) {
+        cells[r].resize(cols);
+    }
+}

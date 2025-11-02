@@ -3,9 +3,8 @@
 
 class Grid {
 public:
-    Grid(int width, int height, int cellSize)
-    : rows(height / cellSize), cols(width / cellSize), cellSize(cellSize) {
-        cells.resize(rows, std::vector<int>(cols, 0));
+    Grid(int width, int height, int cellSize) {
+        UpdateSize(width, height, cellSize);
     }
     void Draw();
     void SetCell(int row, int col, int value);
@@ -16,6 +15,7 @@ public:
     void FillRandom();
     void Clear();
     void ToggleCell(int row, int col);
+    void UpdateSize(int width, int height, int cellsize);
 private:
     int rows;
     int cols;

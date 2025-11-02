@@ -6,7 +6,7 @@ class Simulation {
     public:
         Simulation(int width, int height, int cellSize)
         : grid(width, height, cellSize), nextGrid(width, height, cellSize), run(false) {
-            // grid.FillRandom();
+            grid.FillRandom();
         };
         void Draw();
         void SetCellValue(int row, int col, int value);
@@ -22,6 +22,10 @@ class Simulation {
         void SetSize(int width, int height, int cellsiz) {
             grid.UpdateSize(width, height, cellsiz);
             nextGrid.UpdateSize(width, height, cellsiz);
+        }
+        void Cleanup() {
+            grid.Cleanup();
+            nextGrid.Cleanup();
         }
     private:
         Grid grid;

@@ -65,7 +65,8 @@ void Simulation::Update()
         }
     }
 
-    std::swap(grid, nextGrid);
+    // Swap only the cell data, preserving textures and other resources
+    grid.SwapCells(nextGrid);
 }
 
 void Simulation::CreateRandomState()

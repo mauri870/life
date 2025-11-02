@@ -23,8 +23,7 @@ int main(void) {
     bool HIDE_UI = false;
 
     InitWindow(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT, "Mauri's Game of Life");
-    SetWindowState(FLAG_WINDOW_RESIZABLE);
-    SetTargetFPS(60);
+    SetWindowState(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
 
     Simulation simulation(SIM_WIDTH, SIM_HEIGHT, CELL_SIZE);
 
@@ -82,6 +81,9 @@ int main(void) {
         }
         EndDrawing();
     }
+
+    // Clean up simulation before closing window to avoid segfaults
+    simulation.Cleanup();
 
     CloseWindow();
     return 0;

@@ -9,6 +9,10 @@ public:
     }
     void Draw();
     void SetCell(int row, int col, int value);
+    int GetCell(int row, int col);
+    bool IsWithinBounds(int row, int col);
+    int GetRows() { return rows; } 
+    int GetCols() { return cols; } 
 private:
     int rows;
     int cols;

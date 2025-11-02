@@ -26,7 +26,7 @@ int Simulation::CountLiveNeighbors(int row, int col)
         {1, 1},
     };
 
-    // Count neighbors, toroidal grid
+    // Count neighbors, toroidal grid wraps at the borders
     for (const auto& offset : neighborOffsets) {
         int nRow = (row + offset.first + grid.GetRows()) % grid.GetRows();
         int nCol = (col + offset.second + grid.GetCols()) % grid.GetCols();
@@ -39,6 +39,10 @@ int Simulation::CountLiveNeighbors(int row, int col)
 
 void Simulation::Update()
 {
+    if (!IsRunning()) {
+        return;
+    }
+
     for (int r = 0; r < grid.GetRows(); r++) {
         for (int c = 0; c < grid.GetCols(); c++) {
             int liveNeighbors = CountLiveNeighbors(r, c);
@@ -57,9 +61,35 @@ void Simulation::Update()
                 }
             }
 
-            tempGrid.SetCell(r, c, nextValue);
+            nextGrid.SetCell(r, c, nextValue);
         }
     }
 
-    grid = tempGrid;
+    std::swap(grid, nextGrid);
+}
+
+void Simulation::CreateRandomState()
+{
+    if (IsRunning()) {
+        return;
+    }
+
+    grid.FillRandom();
+}
+
+void Simulation::ClearGrid()
+{
+    if (IsRunning()) {
+        return;
+    }
+
+    grid.Clear();
+}
+
+void Simulation::ToggleCell(int row, int col)
+{
+    if (IsRunning()) {
+        return;
+    }
+    grid.ToggleCell(row, col);
 }

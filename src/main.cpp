@@ -20,7 +20,29 @@ int main(void) {
     // Simulation loop
     while (!WindowShouldClose()) {
         // Event handling
-        // Update state
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            Vector2 mousePos = GetMousePosition();
+            int row = mousePos.y / CELL_SIZE;
+            int col = mousePos.x / CELL_SIZE;
+            simulation.ToggleCell(row, col);
+        }
+        if (IsKeyPressed(KEY_SPACE)) {
+            simulation.ToggleRun();
+        } else if (IsKeyPressed(KEY_R)) {
+            simulation.CreateRandomState();
+        } else if (IsKeyPressed(KEY_C)) {
+            simulation.ClearGrid();
+        } else if (IsKeyPressed(KEY_E)) {
+            FPS += 3;
+            SetTargetFPS(FPS);
+        } else if (IsKeyPressed(KEY_Q)) {
+            if (FPS > 5) {
+                FPS -= 2;
+                SetTargetFPS(FPS);
+            }
+        }
+
+        // State update
         simulation.Update();
 
         // Drawing

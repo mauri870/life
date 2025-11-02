@@ -45,3 +45,21 @@ void Grid::FillRandom()
         }
     }
 }
+
+void Grid::Clear()
+{
+    for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) {
+            SetCell(r, c, 0);
+        }
+    }
+}
+
+void Grid::ToggleCell(int row, int col)
+{
+    if (!IsWithinBounds(row, col)) {
+        return;
+    }
+
+    SetCell(row, col, !GetCell(row, col));
+}

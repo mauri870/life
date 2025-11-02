@@ -14,6 +14,8 @@ public:
     int GetRows() { return rows; } 
     int GetCols() { return cols; } 
     void FillRandom();
+    void Clear();
+    void ToggleCell(int row, int col);
 private:
     int rows;
     int cols;

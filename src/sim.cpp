@@ -36,3 +36,30 @@ int Simulation::CountLiveNeighbors(int row, int col)
 
     return liveNeighbors;
 }
+
+void Simulation::Update()
+{
+    for (int r = 0; r < grid.GetRows(); r++) {
+        for (int c = 0; c < grid.GetCols(); c++) {
+            int liveNeighbors = CountLiveNeighbors(r, c);
+            int cellValue = grid.GetCell(r, c);
+
+            int nextValue = 0;
+            if (cellValue == 1) {
+                // Live cell survives if it has 2 or 3 live neighbors
+                if(liveNeighbors == 2 || liveNeighbors == 3) {
+                    nextValue = 1;
+                }
+            } else {
+                // Dead cell becomes alive if it has exactly 3 live neighbors
+                if (liveNeighbors == 3) {
+                    nextValue = 1;
+                }
+            }
+
+            tempGrid.SetCell(r, c, nextValue);
+        }
+    }
+
+    grid = tempGrid;
+}

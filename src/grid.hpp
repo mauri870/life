@@ -13,6 +13,7 @@ public:
     bool IsWithinBounds(int row, int col);
     int GetRows() { return rows; } 
     int GetCols() { return cols; } 
+    void FillRandom();
 private:
     int rows;
     int cols;

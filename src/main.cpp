@@ -55,6 +55,7 @@ int main(void) {
         simulation.Draw();
         EndMode2D();
 
+        DrawRectangle(0, 0, 700, 80, Fade(BLACK, 0.5f));
         DrawText(
             "Left click: Toggle cell    |   Right drag: Pan view    |   Scroll: Zoom\n"
             "Space: Run/Pause    |   R: Randomize    |   C: Clear\n"
@@ -66,7 +67,7 @@ int main(void) {
         int ftMs = static_cast<int>(ft);
 
         char buf[64];
-        sprintf(buf, "Frame Time: %d ms | FPS: %d", ftMs, GetFPS());
+        sprintf(buf, "Frame Time: %d ms | FPS: %d | UPS: %d", ftMs, GetFPS(), static_cast<int>(UPS_STEP));
 
         int fontSize = 16;
         int w = MeasureText(buf, fontSize);

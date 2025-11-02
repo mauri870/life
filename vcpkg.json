@@ -1,0 +1,12 @@
+{
+  "name": "life",
+  "version": "0.0.1",
+  "dependencies": [
+    {
+      "name": "raylib",
+      "version>=": "5.5"
+    }
+  ],
+  "builtin-baseline": "e3ed41868d5034bc608eaaa58383cd6ecdbb5ffb"
+}
+  

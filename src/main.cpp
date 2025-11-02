@@ -6,7 +6,7 @@
 const int INITIAL_WINDOW_WIDTH = 800;
 const int INITIAL_WINDOW_HEIGHT = 600;
 
-int ProcessInput(Camera2D& camera, Simulation& simulation, float& UPS_STEP, const int CELL_SIZE);
+int ProcessInput(Camera2D& camera, Simulation& simulation, float& UPS_STEP, bool& HIDE_UI, const int CELL_SIZE);
 
 int main(void) {
 // Force X11 on Linux, wayland has issues with fullscreen
@@ -20,6 +20,7 @@ int main(void) {
     int CELL_SIZE = 5;
     float UPS_STEP = 12.0f; // simulation at 12 UPS
     float ups = 0.0f;
+    bool HIDE_UI = false;
 
     InitWindow(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT, "Mauri's Game of Life");
     SetWindowState(FLAG_WINDOW_RESIZABLE);
@@ -39,7 +40,7 @@ int main(void) {
         float dt = GetFrameTime();
         ups += dt;
 
-        ProcessInput(camera, simulation, UPS_STEP, CELL_SIZE);
+        ProcessInput(camera, simulation, UPS_STEP, HIDE_UI, CELL_SIZE);
 
         // Update simulation at fixed timestep
         float upsStep = 1.0f / UPS_STEP;
@@ -55,27 +56,30 @@ int main(void) {
         simulation.Draw();
         EndMode2D();
 
-        DrawRectangle(0, 0, 700, 80, Fade(BLACK, 0.5f));
-        DrawText(
-            "Left click: Toggle cell    |   Right drag: Pan view    |   Scroll: Zoom\n"
-            "Space: Run/Pause    |   R: Randomize    |   C: Clear\n"
-            "E: Faster    |   Q: Slower    |   Enter: Toggle fullscreen",
-            10, 10, 20, YELLOW
-        );
+        // Draw UI
+        if (!HIDE_UI) {
+            DrawRectangle(0, 0, 700, 80, Fade(BLACK, 0.5f));
+            DrawText(
+                "Left click: Toggle cell    |   Right drag: Pan view    |   Scroll: Zoom\n"
+                "Space: Run/Pause    |   R: Randomize    |   C: Clear\n"
+                "E: Faster    |   Q: Slower    |   Enter: Toggle fullscreen",
+                10, 10, 20, YELLOW
+            );
 
-        float ft = GetFrameTime() * 1000.0f;
-        int ftMs = static_cast<int>(ft);
+            float ft = GetFrameTime() * 1000.0f;
+            int ftMs = static_cast<int>(ft);
 
-        char buf[64];
-        sprintf(buf, "Frame Time: %d ms | FPS: %d | UPS: %d", ftMs, GetFPS(), static_cast<int>(UPS_STEP));
+            char buf[64];
+            sprintf(buf, "Frame Time: %d ms | FPS: %d | UPS: %d", ftMs, GetFPS(), static_cast<int>(UPS_STEP));
 
-        int fontSize = 16;
-        int w = MeasureText(buf, fontSize);
-        int x = GetScreenWidth() - w - 10;
-        int y = GetScreenHeight() - fontSize - 10;
+            int fontSize = 16;
+            int w = MeasureText(buf, fontSize);
+            int x = GetScreenWidth() - w - 10;
+            int y = GetScreenHeight() - fontSize - 10;
 
-        DrawRectangle(x - 2, y - 2, w + 4, fontSize + 4, Fade(BLACK, 0.5f));
-        DrawText(buf, x, y, fontSize, YELLOW);
+            DrawRectangle(x - 2, y - 2, w + 4, fontSize + 4, Fade(BLACK, 0.5f));
+            DrawText(buf, x, y, fontSize, YELLOW);
+        }
         EndDrawing();
     }
 
@@ -83,7 +87,7 @@ int main(void) {
     return 0;
 }
 
-int ProcessInput(Camera2D& camera, Simulation& simulation, float& UPS_STEP, const int CELL_SIZE)
+int ProcessInput(Camera2D& camera, Simulation& simulation, float& UPS_STEP, bool& HIDE_UI, const int CELL_SIZE)
 {
     // Toggle cell on left mouse click
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
@@ -122,6 +126,9 @@ int ProcessInput(Camera2D& camera, Simulation& simulation, float& UPS_STEP, cons
     else if (IsKeyPressed(KEY_C)) simulation.ClearGrid();
     else if (IsKeyPressed(KEY_E)) { UPS_STEP += 3; }
     else if (IsKeyPressed(KEY_Q)) { if (UPS_STEP > 12) { UPS_STEP -= 2; } }
+    else if (IsKeyPressed(KEY_I)) {
+        HIDE_UI = !HIDE_UI;
+    }
     else if (IsKeyPressed(KEY_ENTER)) {
         if (!IsWindowFullscreen()) {
             int monitor = GetCurrentMonitor();

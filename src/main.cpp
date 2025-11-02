@@ -58,10 +58,10 @@ int main(void) {
 
         // Draw UI
         if (!HIDE_UI) {
-            DrawRectangle(0, 0, 700, 80, Fade(BLACK, 0.5f));
+            DrawRectangle(0, 0, 700, 80, Fade(BLACK, 0.8f));
             DrawText(
                 "Left click: Toggle cell    |   Right drag: Pan view    |   Scroll: Zoom\n"
-                "Space: Run/Pause    |   R: Randomize    |   C: Clear\n"
+                "Space: Run/Pause    |   R: Randomize    |   C: Clear   |   I: Hide UI\n"
                 "E: Faster    |   Q: Slower    |   Enter: Toggle fullscreen",
                 10, 10, 20, YELLOW
             );
@@ -77,7 +77,7 @@ int main(void) {
             int x = GetScreenWidth() - w - 10;
             int y = GetScreenHeight() - fontSize - 10;
 
-            DrawRectangle(x - 2, y - 2, w + 4, fontSize + 4, Fade(BLACK, 0.5f));
+            DrawRectangle(x - 2, y - 2, w + 4, fontSize + 4, Fade(BLACK, 0.8f));
             DrawText(buf, x, y, fontSize, YELLOW);
         }
         EndDrawing();

@@ -1,4 +1,4 @@
-# Mauri's Conway's game of life
+# A simple Conway's game of life
 
 # Installation
 
@@ -10,3 +10,5 @@
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j $(nproc)
 ```
+
+![Alt text](./life.png?raw=true "Game of Life")

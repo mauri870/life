@@ -18,7 +18,7 @@ int main(void) {
     const int SIM_WIDTH = 2000;
     const int SIM_HEIGHT = 2000;
     int CELL_SIZE = 5;
-    float UPS_STEP = 12.0f; // simulation at 12 UPS
+    float UPS_STEP = 5.0f; // simulation at 5 UPS
     float ups = 0.0f;
     bool HIDE_UI = false;
 
@@ -127,7 +127,7 @@ int ProcessInput(Camera2D& camera, Simulation& simulation, float& UPS_STEP, bool
     else if (IsKeyPressed(KEY_R)) simulation.CreateRandomState();
     else if (IsKeyPressed(KEY_C)) simulation.ClearGrid();
     else if (IsKeyPressed(KEY_E)) { UPS_STEP += 3; }
-    else if (IsKeyPressed(KEY_Q)) { if (UPS_STEP > 12) { UPS_STEP -= 2; } }
+    else if (IsKeyPressed(KEY_Q)) { if (UPS_STEP > 5) { UPS_STEP -= 2; } }
     else if (IsKeyPressed(KEY_I)) {
         HIDE_UI = !HIDE_UI;
     }

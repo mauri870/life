@@ -4,6 +4,7 @@ set(CMAKE_TOOLCHAIN_FILE external/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE S
 project(life)
 
 find_package(raylib CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
 
 set(CMAKE_C_STANDARD 11)
 

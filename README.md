@@ -3,8 +3,7 @@
 # Installation
 
 ```bash
-# initialize vcpkg
-(cd external/vcpkg && ./bootstrap-vcpkg.sh)
+git clone --recurse-submodules https://github.com/mauri870/life.git
 
 # configure and compile
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release

@@ -62,11 +62,11 @@ int main(void) {
 
         // Draw UI
         if (!HIDE_UI) {
-            DrawRectangle(0, 0, 700, 80, Fade(BLACK, 0.8f));
+            DrawRectangle(0, 0, 750, 80, Fade(BLACK, 0.8f));
             DrawText(
                 "Left click: Toggle cell    |   Right drag: Pan view    |   Scroll: Zoom\n"
                 "Space: Run/Pause    |   R: Randomize    |   C: Clear   |   I: Hide UI\n"
-                "E: Faster    |   Q: Slower    |   Enter: Toggle fullscreen",
+                "N: Next state    |    E: Faster    |   Q: Slower    |   Enter: Fullscreen",
                 10, 10, 20, YELLOW
             );
 
@@ -135,6 +135,11 @@ int ProcessInput(Camera2D& camera, Simulation& simulation, float& UPS_STEP, bool
     else if (IsKeyPressed(KEY_Q)) { if (UPS_STEP > 5) { UPS_STEP -= 2; } }
     else if (IsKeyPressed(KEY_I)) {
         HIDE_UI = !HIDE_UI;
+    }
+    else if (IsKeyPressed(KEY_N)) {
+        simulation.ToggleRun();
+        simulation.Update();
+        simulation.ToggleRun();
     }
     else if (IsKeyPressed(KEY_ENTER)) {
         if (!IsWindowFullscreen()) {

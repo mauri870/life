@@ -25,6 +25,11 @@ int main(void) {
     InitWindow(INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT, "Mauri's Game of Life");
     SetWindowState(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
 
+#if defined(__linux__)
+    // For some reason the close window button does not appear until the window is resized
+    SetWindowSize(INITIAL_WINDOW_WIDTH+1, INITIAL_WINDOW_HEIGHT+1);
+#endif
+
     Simulation simulation(SIM_WIDTH, SIM_HEIGHT, CELL_SIZE);
 
     // Camera for panning and zooming
